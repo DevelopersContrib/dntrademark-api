@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Auth;
+// use Illuminate\Support\Facades\Auth;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -31,7 +32,7 @@ class AuthenticatedSessionController extends Controller
             return response()->json([
                 'success' => true,
                 'data' => [
-                    'user' => $user,
+                    'user' => new UserResource($user),
                     'token' => $token
                 ]
             ], JsonResponse::HTTP_OK);

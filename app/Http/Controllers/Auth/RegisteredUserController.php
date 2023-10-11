@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 
+use App\Http\Resources\UserResource;
+
 class RegisteredUserController extends Controller
 {
     /**
@@ -44,7 +46,7 @@ class RegisteredUserController extends Controller
             return response()->json([
                 'success' => true,
                 'data' => [
-                    'user' => $user,
+                    'user' => new UserResource($user),
                     'token' => $token
                 ]
             ], JsonResponse::HTTP_OK);

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\EnsureApiKeyIsValid;
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Api\V1\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,15 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 Route::middleware(EnsureApiKeyIsValid::class)->group(function () {
     Route::middleware(['auth:sanctum'])->group(function () {
+        //Logout
         Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+
+        //V1
+        Route::prefix('v1')->group(function () {
+            //Users
+            Route::prefix('users')->group(function () {
+                Route::put('/{user}', [UserController::class, 'update']);
+            });
+        });
     });
 });
