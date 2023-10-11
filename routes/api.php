@@ -8,6 +8,7 @@ use App\Http\Middleware\EnsureApiKeyIsValid;
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Api\V1\UserController;
+use App\Http\Controllers\Api\v1\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,12 @@ Route::middleware(EnsureApiKeyIsValid::class)->group(function () {
             //Users
             Route::prefix('users')->group(function () {
                 Route::put('/{user}', [UserController::class, 'update']);
+            });
+
+            //Payment
+            Route::prefix('payment')->group(function () {
+                Route::put('create-charge', [PaymentController::class, 'update']);
+                Route::put('checkout', [PaymentController::class, 'update']);
             });
         });
     });
