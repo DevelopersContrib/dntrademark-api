@@ -18,7 +18,7 @@ class UserController extends Controller
     {
     }
 
-    public function update(UpdateUserRequest $request, User $user): JsonResponse
+    public function update(User $user, UpdateUserRequest $request): JsonResponse
     {
         try {
             $data = $request->validated();

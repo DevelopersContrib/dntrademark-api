@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\PackageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -34,6 +35,14 @@ Route::middleware(EnsureApiKeyIsValid::class)->group(function () {
             Route::prefix('users')->group(function () {
                 Route::put('/{user}', [UserController::class, 'update']);
             });
+        });
+    });
+
+    //Public api endpoints
+    Route::prefix('v1')->group(function () {
+        Route::prefix('packages')->group(function () {
+            Route::get('/', [PackageController::class, 'index']);
+            Route::get('/{package}', [PackageController::class, 'show']);
         });
     });
 });
