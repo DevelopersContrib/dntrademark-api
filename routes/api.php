@@ -7,8 +7,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\EnsureApiKeyIsValid;
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\Api\V1\UserController;
+use App\Http\Controllers\Api\V1\DomainController;
 use App\Http\Controllers\Api\v1\PaymentController;
+use App\Http\Controllers\Api\V1\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,16 @@ Route::middleware(EnsureApiKeyIsValid::class)->group(function () {
             Route::prefix('payment')->group(function () {
                 Route::put('create-charge', [PaymentController::class, 'update']);
                 Route::put('checkout', [PaymentController::class, 'update']);
+            });
+
+            //Domains
+            Route::prefix('domains')->group(function () {
+                Route::get('/', [DomainController::class, 'index']);
+                Route::post('/', [DomainController::class, 'store']);
+                Route::get('count', [DomainController::class, 'count']);
+                Route::get('/hits', [DomainController::class, 'countHitDomains']);
+                Route::get('/no-hits', [DomainController::class, 'countWithoutHitDomains']);
+                Route::get('/risks', [DomainController::class, 'countDomainRisks']);
             });
         });
     });

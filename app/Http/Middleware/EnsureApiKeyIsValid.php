@@ -14,7 +14,7 @@ class EnsureApiKeyIsValid
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): JsonResponse
+    public function handle(Request $request, Closure $next)
     {
         if ($request->api_key !== md5('dntrademark.com')) {
             return response()->json([
