@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('packages', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->nullable();
+            $table->integer('start_limit')->nullable();
+            $table->integer('end_limit')->nullable();
+            $table->decimal('price')->nullable();
             $table->timestamps();
         });
     }
