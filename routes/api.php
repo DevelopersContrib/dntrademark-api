@@ -58,6 +58,11 @@ Route::middleware(EnsureApiKeyIsValid::class)->group(function () {
 
     //Public api endpoints
     Route::prefix('v1')->group(function () {
+        Route::prefix('check')->group(function () {
+            Route::get('email', [UserController::class, 'checkEmailExists']);
+            Route::post('credentials', [UserController::class, 'checkCredentials']);
+        });
+        //Packages
         Route::prefix('packages')->group(function () {
             Route::get('/', [PackageController::class, 'index']);
             Route::get('/{package}', [PackageController::class, 'show']);
